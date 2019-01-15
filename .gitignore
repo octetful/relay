@@ -96,3 +96,12 @@ ENV/
 
 viera.yaml
 viera.jsonld
+
+# IntelliJ IDEA files
+.idea
+.idea/**
+
+# Certificate Files
+*.pem
+*.crt
+*.key

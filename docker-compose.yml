@@ -1,0 +1,29 @@
+version: '3'
+services:
+  relay_proxy:
+    image: nginx:latest
+    networks:
+    - external_network
+    - internal_network
+    volumes:
+    - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    - ./nginx-selfsigned-full.pem:/etc/certs/cert_full.pem
+    - ./nginx-selfsigned-pvt.pem:/etc/certs/cert_pvt.pem
+    depends_on:
+    - web
+    ports:
+    - 80:80
+    - 443:443
+    expose:
+    - "80"
+    - "443"
+
+  relay_service:
+    build: .
+    image: sighosh2/relay
+    command: bin/run.sh
+
+networks:
+  external_network:
+  internal_network:
+    internal: true
